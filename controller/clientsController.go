@@ -37,13 +37,13 @@ func PostNewClientController(c echo.Context) (err error) {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 	if err := c.Validate(u); err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+		return echo.NewHTTPError(http.StatusBadRequest, "bad request")
 	}
 	client, e := database.InsertClient(PostClientsRequestToModelRequest(u))
 	if err != nil {
 		if e != nil {
 			return c.JSON(http.StatusBadRequest, map[string]interface{}{
-				"message": e.Error(),
+				"message": err.Error(),
 			})
 		}
 	}
@@ -58,11 +58,11 @@ func PutClientController(c echo.Context) (err error) {
 	if err := c.Validate(u); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, "bad request")
 	}
-	_, e := database.UpdateClient(PutClientsRequestToModelRequest(u))
+	database.UpdateClient(PutClientsRequestToModelRequest(u))
 	client, err := database.GetClientByID(int(u.ID))
-	if e != nil {
+	if err != nil{
 		return c.JSON(http.StatusNotFound, map[string]interface{}{
-			"message": e.Error(),
+			"message": err.Error(),
 		})
 	}
 	return c.JSON(http.StatusOK, ModelToClientDetailResponse(client))
