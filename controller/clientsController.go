@@ -31,7 +31,7 @@ func GetClientByIDController(c echo.Context) error {
 	return c.JSON(http.StatusOK, ModelToClientDetailResponse(clients))
 }
 
-func PostNewClient(c echo.Context) (err error) {
+func PostNewClientController(c echo.Context) (err error) {
 	u := new(PostClientRequest)
 	if err = c.Bind(u); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -50,7 +50,7 @@ func PostNewClient(c echo.Context) (err error) {
 	return c.JSON(http.StatusCreated, ModelToClientDetailResponse(client))
 }
 
-func PutClient(c echo.Context) (err error) {
+func PutClientController(c echo.Context) (err error) {
 	u := new(PutClientRequest)
 	if err = c.Bind(u); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -68,7 +68,7 @@ func PutClient(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, ModelToClientDetailResponse(client))
 }
 
-func DeleteClient(c echo.Context) (err error) {
+func DeleteClientController(c echo.Context) (err error) {
 	ID := c.Param("id")
 	i, _ := strconv.Atoi(ID)
 	_, e := database.DeleteClient(i)

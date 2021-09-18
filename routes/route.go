@@ -10,9 +10,9 @@ func New() *echo.Echo {
 
 	e.GET("/client", controller.GetAllClientController)
 	e.GET("/client/:id", controller.GetClientByIDController)
-	e.POST("/client", controller.PostNewClient)
-	e.PUT("/client", controller.PutClient)
-	e.DELETE("/client/:id", controller.DeleteClient)
+	e.POST("/client", controller.PostNewClientController)
+	e.PUT("/client", controller.PutClientController)
+	e.DELETE("/client/:id", controller.DeleteClientController)
 
 	return e
 }
